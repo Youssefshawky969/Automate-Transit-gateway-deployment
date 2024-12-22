@@ -32,7 +32,7 @@ jobs:
           command: terraform init
       - run:
           name: Terraform Plan
-          command: terraform plan -out=tfplan
+          command: terraform plan
 
   apply:
     docker:
