@@ -23,7 +23,7 @@ jobs:
           name: Verify HCL Login
           command: |
             echo "Token: $HCL_PORTAL_TOKEN"
-            yes | terraform login   
+            echo "yes" | terraform login   
       
       - run:
           name: Set up AWS Credentials
