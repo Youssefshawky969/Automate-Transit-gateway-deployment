@@ -1,36 +1,40 @@
 version: 2.1
 
 jobs:
-  deploy:
+  prepare:
     docker:
       - image: hashicorp/terraform:latest
     steps:
       - checkout
-
       - run:
-          name: Configure AWS Credentials
-          command: |
-            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+          name: Prepare Workspace
+          command: echo "Preparing workspace..."
 
+  plan:
+    docker:
+      - image: hashicorp/terraform:latest
+    steps:
+      - checkout
       - run:
-          name: Initialize Terraform
+          name: Terraform Init
           command: terraform init
-
       - run:
-          name: Validate Terraform Files
-          command: terraform validate
-
-      - run:
-          name: Plan Terraform Changes
+          name: Terraform Plan
           command: terraform plan -out=tfplan
 
+  apply:
+    docker:
+      - image: hashicorp/terraform:latest
+    steps:
+      - checkout
       - run:
-          name: Apply Terraform Changes
+          name: Terraform Apply
           command: terraform apply -auto-approve tfplan
 
 workflows:
   version: 2
   deploy:
     jobs:
-      - deploy
+      - prepare
+      - plan
+      - apply
