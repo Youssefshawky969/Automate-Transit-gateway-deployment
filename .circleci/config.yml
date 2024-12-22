@@ -18,11 +18,8 @@ jobs:
       - run:
           name: Set up HCL Credentials
           command: |
-            export HCL_TOKEN=$HCL_TOKEN
-      - run:
-          name: Verify HCL Login
-          command: |
-             terraform login -auto-approve 
+            export TF_API_TOKEN=$TF_API_TOKEN
+       
       
       - run:
           name: Set up AWS Credentials
