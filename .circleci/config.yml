@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Verify HCL Login
           command: |
-            echo "Token: $HCL_PORTAL_TOKEN"
+            echo "Token: $HCL_TOKEN"
             echo "yes" | terraform login   
       
       - run:
