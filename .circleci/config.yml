@@ -41,7 +41,7 @@ jobs:
       - checkout
       - run:
           name: Terraform Apply
-          command: terraform apply -auto-approve tfplan
+          command: terraform apply -auto-approve
 
 workflows:
   version: 2
