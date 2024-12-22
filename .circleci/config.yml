@@ -19,7 +19,12 @@ jobs:
           name: Set up HCL Credentials
           command: |
             export HCL_TOKEN=$HCL_TOKEN
-            
+      - run:
+          name: Verify HCL Login
+          command: |
+            echo "Token: $HCL_PORTAL_TOKEN"
+            terraform login      
+      
       - run:
           name: Set up AWS Credentials
           command: |
