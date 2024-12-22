@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Set up AWS Credentials
+          name: Set up HCL Credentials
           command: |
             export HCL_TOKEN=$HCL_TOKEN
             
