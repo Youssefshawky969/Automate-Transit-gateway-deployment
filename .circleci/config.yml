@@ -1,56 +1,36 @@
 version: 2.1
-executors:
-  default:
+
+jobs:
+  deploy:
     docker:
       - image: hashicorp/terraform:latest
-jobs:
-  prepare:
     steps:
       - checkout
+
       - run:
-          name: Install AWS CLI
-          command: apk add aws-cli
-      - run:
-          name: Terraform Init
-          command: terraform init
-      - run:
-          name: Set up AWS Credentials
+          name: Configure AWS Credentials
           command: |
             export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+
       - run:
-          name: Terraform Init
+          name: Initialize Terraform
           command: terraform init
-  
-  plan:
-    steps:
-      - checkout
-      - run:
-          name: Terraform Plan
-          command: terraform plan -out=tfplan_tgw
-      - persist_to_workspace:
-          root: .
-          paths:
-            - tfplan_tgw
 
-  apply:
-    steps:
-      - attach_workspace:
-          at: .
       - run:
-          name: Terraform Apply
-          command: terraform apply tfplan_tgw
+          name: Validate Terraform Files
+          command: terraform validate
 
+      - run:
+          name: Plan Terraform Changes
+          command: terraform plan -out=tfplan
+
+      - run:
+          name: Apply Terraform Changes
+          command: terraform apply -auto-approve tfplan
 
 workflows:
   version: 2
-  main:
+  deploy:
     jobs:
-      - prepare
-      - plan:
-          requires:
-            - prepare
-      - apply:
-          requires:
-            - plan
-          type: approval                    
+      - deploy
