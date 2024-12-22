@@ -18,7 +18,7 @@ jobs:
       - run:
           name: Set up AWS Credentials
           command: |
-            export HCL_TOKEN_=$HCL_TOKEN
+            export HCL_TOKEN=$HCL_TOKEN
             
       - run:
           name: Set up AWS Credentials
