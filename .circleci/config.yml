@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Verify HCL Login
           command: |
-             terraform login | yes | echo $HCL_TOKEN 
+             terraform login -auto-approve 
       
       - run:
           name: Set up AWS Credentials
