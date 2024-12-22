@@ -16,9 +16,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Set up HCL Credentials
+          name: Set Terraform Credentials
           command: |
-            export TF_API_TOKEN=$TF_API_TOKEN
+            mkdir -p ~/.terraform.d
+            echo '{"credentials":{"app.terraform.io":{"token":"'$TF_API_TOKEN'"}}}' > ~/.terraform.d/credentials.tfrc.json
        
       
       - run:
