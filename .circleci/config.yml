@@ -23,7 +23,8 @@ jobs:
             echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
             echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
             echo "AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION" >> ~/.aws/credentials
-            export TF_API_TOKEN=$TF_API_TOKEN 
+            echo "TF_API_TOKEN=$TF_API_TOKEN" >> ~/.aws/credentials
+             
       - run:
           name: Terraform Init
           command: terraform init
@@ -47,7 +48,7 @@ jobs:
           name: Restore AWS and Terraform Credentials
           command: |
             cp -r /workspace/.aws ~/
-            export TF_TOKEN=$TF_TOKEN
+            
       - run:
           name: Terraform Apply
           command: terraform apply "/workspace/tfplan_tgw"      
