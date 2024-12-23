@@ -39,6 +39,16 @@ jobs:
           root: .
           paths:
             - tfplan_tgw
+   apply:
+    docker:
+      - image: hashicorp/terraform:latest
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /workspace
+      - run:
+          name: Terraform Apply
+          command: terraform apply "/workspace/tfplan_tgw"       
             
 
   
@@ -49,3 +59,10 @@ workflows:
     jobs:
       - prepare
       - plan
+      - approval:  # Add manual approval step
+          type: approval
+          requires:
+            - plan
+      - apply:
+          requires:
+            - approval
