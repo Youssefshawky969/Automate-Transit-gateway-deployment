@@ -52,7 +52,7 @@ jobs:
       - run:
           name: Restore Lock File
           command:
-            cp -r /workspace/.terraform .
+            
             cp /workspace/.terraform.lock.hcl .
       - run:
           name: Initialize Terraform Backend
