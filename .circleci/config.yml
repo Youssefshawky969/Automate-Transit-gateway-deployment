@@ -38,8 +38,9 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .terraform.lock.hcl
+            - .terraform
             - tfplan_tgw
+            - .terraform.lock.hcl
    
   apply:
     docker:
@@ -50,7 +51,12 @@ jobs:
           at: /workspace
       - run:
           name: Restore Lock File
-          command: cp /workspace/.terraform.lock.hcl .
+          command:
+            cp -r /workspace/.terraform .
+            cp /workspace/.terraform.lock.hcl .
+      - run:
+          name: Initialize Terraform Backend
+          command: terraform init
       - run:
           name: Set Terraform Credentials
           command: |
