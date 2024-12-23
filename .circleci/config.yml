@@ -15,7 +15,7 @@ jobs:
       - image: hashicorp/terraform:latest
     steps:
       - checkout
-     - run:
+      - run:
           name: Set Terraform Credentials
           command: |
             mkdir -p ~/.terraform.d
