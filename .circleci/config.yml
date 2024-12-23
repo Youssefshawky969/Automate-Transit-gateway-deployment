@@ -22,8 +22,7 @@ jobs:
             echo '{"credentials":{"app.terraform.io":{"token":"'$TF_API_TOKEN'"}}}' > ~/.terraform.d/credentials.tfrc.json
        
       
-      - run:
-          
+      
       - run:
           name: Terraform Init
           command: terraform init
