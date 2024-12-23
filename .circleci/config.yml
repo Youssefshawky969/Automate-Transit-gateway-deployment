@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   prepare:
     docker:
-      - image: hashicorp/terraform:latest
+      - image: hashicorp/terraform:1.9.4
     steps:
       - checkout
       - run:
@@ -12,7 +12,7 @@ jobs:
 
   plan:
     docker:
-      - image: hashicorp/terraform:latest
+      - image: hashicorp/terraform:1.9.4
     steps:
       - checkout
       - run:
@@ -38,15 +38,19 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
+            - .terraform.lock.hcl
             - tfplan_tgw
    
   apply:
     docker:
-      - image: hashicorp/terraform:latest
+      - image: hashicorp/terraform:1.9.4
     steps:
       - checkout
       - attach_workspace:
           at: /workspace
+      - run:
+          name: Restore Lock File
+          command: cp /workspace/.terraform.lock.hcl .
       - run:
           name: Set Terraform Credentials
           command: |
