@@ -55,13 +55,14 @@ jobs:
             
             cp /workspace/.terraform.lock.hcl .
       - run:
-          name: Initialize Terraform Backend
-          command: terraform init
-      - run:
           name: Set Terraform Credentials
           command: |
             mkdir -p ~/.terraform.d
             echo '{"credentials":{"app.terraform.io":{"token":"'$TF_API_TOKEN'"}}}' > ~/.terraform.d/credentials.tfrc.json
+      - run:
+          name: Initialize Terraform Backend
+          command: terraform init
+      
       - run:
           name: Terraform Apply
           command: terraform apply "/workspace/tfplan_tgw"           
