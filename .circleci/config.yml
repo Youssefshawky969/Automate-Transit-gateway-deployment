@@ -33,15 +33,9 @@ jobs:
             export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
             export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
             terraform plan
+            terraform apply -auto-approve
 
-  apply:
-    docker:
-      - image: hashicorp/terraform:latest
-    steps:
-      - checkout
-      - run:
-          name: Terraform Apply
-          command: terraform apply -auto-approve
+  
 
 workflows:
   version: 2
