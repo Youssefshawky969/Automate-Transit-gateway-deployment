@@ -39,7 +39,7 @@ jobs:
           root: .
           paths:
             - tfplan_tgw
-   apply:
+   
   apply:
     docker:
       - image: hashicorp/terraform:latest
